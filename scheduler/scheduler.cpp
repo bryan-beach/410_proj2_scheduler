@@ -33,10 +33,8 @@ bool Scheduler::time_to_switch_processes(int tick_count, PCB &p) {
 		return true;
 	}
 
-	if (preemptive) {
-		if (time_slice == 0) {
-			return true;
-		}
+	if (p.isEmpty()) {
+		return true;
 	}
 
 	return false;

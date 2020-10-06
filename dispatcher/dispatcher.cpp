@@ -11,15 +11,15 @@
 
 PCB Dispatcher::get_from_CPU() {
 
-	PCB invalid_job;
+	PCB *invalid_job = new PCB;
 	PCB valid_job;
 	if(this->isValidJobOnCPU()) {
 		valid_job = cpu->get_COPY_of_Current_Process();
-		this->put_on_CPU(invalid_job);
+		this->put_on_CPU(*invalid_job);
 		return valid_job;
 	}
 
-	return invalid_job;
+	return *invalid_job;
 }
 
 void Dispatcher::put_on_CPU(PCB  &process) {
