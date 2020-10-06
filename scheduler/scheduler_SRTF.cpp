@@ -14,6 +14,14 @@
 #include <algorithm>
 
 bool Scheduler_SRTF::time_to_switch_processes(int tick_count, PCB &p) {
+	if (preemptive) {
+		sort();
+	}
+
+	if (p.remaining_cpu_time > ready_q->front().remaining_cpu_time) {
+		return true;
+	}
+
 	if (p.remaining_cpu_time == 0) {
 		return true;
 	}
@@ -26,7 +34,19 @@ bool Scheduler_SRTF::time_to_switch_processes(int tick_count, PCB &p) {
 }
 
 void Scheduler_SRTF::sort() {
-	//std::sort(ready_q->front(), ready_q->back(), [](const auto& lhs, const auto& rhs){
-	//			return lhs.remaining_cpu_time < rhs.remaining_cpu_time;
-	//		});
+
+	std::vector<PCB> sort_vec;
+
+	while(ready_q->empty() == false) {
+		sort_vec.push_back(ready_q->front());
+		ready_q->pop();
+	}
+
+	std::sort(sort_vec.begin(), sort_vec.end(), [](const auto& lhs, const auto& rhs){
+				return lhs.remaining_cpu_time < rhs.remaining_cpu_time;
+	});
+
+	for(int i = 0; i < sort_vec.size(); i++)
+	{   ready_q->push(sort_vec[i]);
+	}
 }

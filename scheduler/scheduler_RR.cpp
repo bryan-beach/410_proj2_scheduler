@@ -20,7 +20,7 @@ bool Scheduler_RR::time_to_switch_processes(int tick_count, PCB &p) {
 	if (p.isEmpty()) {
 		return true;
 	}
-	if (time_slice == (tick_count - p.arrival_time)) {
+	if ((p.required_cpu_time - p.remaining_cpu_time) % time_slice == 0) {
 		return true;
 	}
 
