@@ -19,7 +19,10 @@ Stats::Stats(std::vector<PCB> &finished_vector) {
 
 void Stats::showAllProcessInfo() {
 
-
+	std::vector<PCB> stat;
+	stat = *vec;
+	PCB fuck;
+	fuck = stat[0];
 
 }
 

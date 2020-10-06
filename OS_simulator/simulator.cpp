@@ -79,6 +79,9 @@ void simulate(const char* pSourceFile, Scheduler &s,std::vector<PCB> &finished_v
 		}
 
 		//time to exit?
+		bool job = joblist.isEmpty();
+		bool sched = scheduler->isEmpty();
+		bool curr = currentJob.isEmpty();
 		if(joblist.isEmpty() && scheduler->isEmpty() && currentJob.isEmpty() )
 			break;
 

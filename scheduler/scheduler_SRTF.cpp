@@ -11,11 +11,24 @@
 //TODO fill in content
 
 #include "../includes/scheduler_SRTF.h"
+#include <algorithm>
 
 bool Scheduler_SRTF::time_to_switch_processes(int tick_count, PCB &p) {
-	return false;
+	if (p.remaining_cpu_time == 0) {
+			return true;
+		}
+
+		if (preemptive) {
+			if (time_slice == 0) {
+				return true;
+			}
+		}
+
+		return false;
 }
 
 void Scheduler_SRTF::sort() {
-
+	//std::sort(ready_q->front(), ready_q->back(), [](const auto& lhs, const auto& rhs){
+	//			return lhs.remaining_cpu_time < rhs.remaining_cpu_time;
+	//		});
 }
